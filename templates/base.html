@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Online Brochure</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" href="http://www.menuclicker.com/webres/admin/bootstrap/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Date Picker -->
+<!-- select 2 library -->
+<link rel="stylesheet" href="http://www.menuclicker.com/webres/admin/plugins/select2/select2.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="http://www.menuclicker.com/webres/admin/dist/css/AdminLTE.min.css">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+     folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet" href="http://www.menuclicker.com/webres/admin/dist/css/skins/_all-skins.min.css">
+<!-- parsey form validation -->
+<link rel="stylesheet" href="http://www.menuclicker.com/webres/parsley/parsley.css">
+<!-- bootstrap wysihtml5 - text editor -->
+
+<!-- cutome style sheet -->
+<link rel="stylesheet" href="http://www.menuclicker.com/webres/admin/bootstrap/css/style.css">
+
+<script src="http://www.menuclicker.com/webres/admin/plugins/jQuery/jquery-3.1.1.min.js"></script>
+<script src="http://www.menuclicker.com/webres/admin/bootstrap/js/bootstrap.min.js"></script>            </head>
+    <body class="skin-blue sidebar-mini wysihtml5-supported" >
+        <div class="wrapper">
+            <header class="main-header">
+                
+<a href="#" class="logo">
+    <span class="logo-mini"><b>CI</b>s</span>
+    <span class="logo-lg"><b>Online Brochure</b></span>
+</a>
+<nav class="navbar navbar-static-top">
+    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+    </a>
+    <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+            <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="http://www.menuclicker.com/webres/admin/dist/img/icon.png" class="user-image" alt="User Image">
+                    <span class="hidden-xs">super</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="user-header">
+                        <img src="http://www.menuclicker.com/webres/admin/dist/img/icon.png" class="img-circle" alt="User Image">
+                        <p>
+                            Online Brochure                          
+                        </p>
+                    </li>
+                    <li class="user-footer">
+                        <form action="http://www.menuclicker.com/logout" id="form-logout" method="post" accept-charset="utf-8">
+                        <div class="pull-left">
+                            <a href="http://www.menuclicker.com/profile?user_id=1" class="btn btn-default btn-flat">Profile</a>
+                        </div>
+                        <div class="pull-right">
+                            <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Logout</a>
+                        </div>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+            </header>
+            <aside class="main-sidebar">
+                <section class="sidebar">
+    <div class="user-panel">
+        <div class="pull-left image">
+            <img src="http://www.menuclicker.com/webres/admin/dist/img/icon.png" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+            <p>super(SUPER-ADMIN)</p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+    </div>
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header" style="background-color: white;">MAIN NAVIGATIONS</li>
+        
+
+                                <li class="active">
+                <a href="{% url 'dashboard' %}">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                </a>
+            </li>
+                        <li class=""><a href="{% url 'shoptype' %}"> <i class="fa fa-shopping-basket"></i><span>Shop Type</span></a></li>
+                        <li class=""><a href="{% url 'category' %}"> <i class="fa fa-dashboard"></i></span>Category</span></a></li>
+            
+            
+            <li class=""><a href="{% url 'shop' %}"> <i class="fa fa-stop-circle"></i><span>Shop</span></a></li>
+            <li class=""><a href="{% url 'addstaff' %}"> <i class="fa fa-stop-circle"></i><span>users</span></a></li>
+
+           
+
+
+
+            <!--             <li class="">
+                <a href="http://www.menuclicker.com/admin-user-list">
+                    <i class="fa fa-dashboard"></i> <span>Admin User Management</span>
+                </a>
+            </li>
+ -->
+
+
+
+            </ul>
+
+</section>            </aside>
+<script>
+    // JavaScript code to make the selected menu item active based on the current URL
+    const currentUrl = window.location.href;
+
+    const menuItems = document.querySelectorAll(".sidebar-menu a");
+
+    menuItems.forEach(item => {
+        if (item.href === currentUrl) {
+            item.parentElement.classList.add("active");
+        } else {
+            item.parentElement.classList.remove("active");
+        }
+    });
+</script>
+
+
+<!-- /////////////////////////////// -->
+{% block content %}
+        
+
+
+
+
+
+<!-- actions.......................... -->
+
+
+
+
+
+
+
+{% endblock %}
+
+
+<!-- ///////////////////////////// -->
+
+
+
+
+            <!-- jQuery 3.1.1 -->
+    
+    <!-- jQuery UI 1.11.4 -->
+    <script src="http://www.menuclicker.com/webres/admin/plugins/jQuery/jquery-ui.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    
+    <!-- select 2 library -->
+    <script src="http://www.menuclicker.com/webres/admin/plugins/select2/select2.full.min.js"></script>
+    <!-- datepicker -->
+    
+    <!-- Slimscroll -->
+    <script src="http://www.menuclicker.com/webres/admin/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="http://www.menuclicker.com/webres/admin/plugins/fastclick/fastclick.js"></script>
+    <script src="http://www.menuclicker.com/webres/admin/plugins/tinymce/tinymce.min.js"></script>
+    <script src="http://www.menuclicker.com/webres/admin/plugins/tinymce/init-tinymce.js"></script>
+    <!-- AdminLTE App -->
+    <script src="http://www.menuclicker.com/webres/admin/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="http://www.menuclicker.com/webres/admin/dist/js/demo.js"></script>
+    
+    <!-- parsey form validation -->
+    <script src="http://www.menuclicker.com/webres/parsley/parsley.min.js"></script>
+    <script src="http://www.menuclicker.com/webres/parsley/parsley_file_validation.js"></script>
+    
+    <script type="text/javascript">
+    
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+    
+            $('.form').submit(function () {
+    
+                $(".btn_submit")
+                        .html("Please Wait...")
+                        .attr('disabled', 'disabled');
+    
+                return true;
+            });
+            
+    
+        });
+    </script>   
+             </body>
+    </html>

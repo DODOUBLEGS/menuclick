@@ -1,0 +1,50 @@
+{% extends 'starter.html' %}
+{% block content %}
+
+
+<div class="content-wrapper">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-md-12">
+                    <!-- General Form Elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Create Shop</h3>
+                        </div>
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Name</label>
+                                    
+                                    {{ form.name }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="local_name">Local Name</label>
+                                    {{ form.local_name }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    {{ form.description }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="is_active">Is Active</label>
+                                    {{ form.is_active }}
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Create Shop</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+{% endblock %}
+

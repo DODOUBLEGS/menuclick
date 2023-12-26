@@ -1,0 +1,110 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Basic</title>
+    <link rel="icon" type="image/png"  href="images/favicon.png"/>
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="http://www.menuclicker.com/assets/css/reset.css">  
+    <link rel="stylesheet" href="http://www.menuclicker.com/assets/css/style.css"> 
+
+    <style>
+        /* Add some basic styling to make the list items display inline */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            display: inline-block;
+            margin-right: 10px;  /* Adjust the margin as needed */
+        }
+    </style>
+ </head>
+
+
+
+<body> 
+     
+     <div class="basic">
+      <div class="container">
+        {% if shop.shop_logo %}
+          <div class="logo"><img src="{{shop.shop_logo.url}}" height="140px"></div>
+          {% else %}
+          {% endif %}
+            <h4>{{shop.shop_name}}</h4>
+            {% if shop.shop_address %}
+            
+            {% else %}
+            {% endif %}
+            <div class="menu">
+              <a target="_blank"  href="{% url 'flipbook' shop.id %}">
+                <span>MENU</span>
+              </a>
+            </div>
+            <div class="location">
+              <a href="{{shop.shop_map_url}}"><span>LOCATION</span></a>
+            </div>
+            <div class="share">
+                <h3>Share</h3>
+        
+            </div>
+    
+                    {% for icon in icons %}
+                
+                    {% if icon.name == 'facebook' %}
+                    <li> <a href="{{icon.social_icons_url}}">  <img src="{% static 'social/fb.png' %}" width="50" height="50" ></a></li>
+                    {% elif icon.name == 'instagram' %}
+                    <li> <a href="{{icon.social_icons_url}}"> <img src="{% static 'social/insta.webp' %}" width="50" height="50"></a></li>
+                    {% elif icon.name == 'whatsapp' %}
+                    <li> <a href="{{icon.social_icons_url}}"> <img src="{% static 'social/wtsp.webp' %}" width="50" height="50"></a></li>
+                    {% endif %}
+                 
+              
+                    {% endfor %}
+                
+      </div>
+          
+           
+            
+<!-- Display social icons based on their IDs -->
+
+
+<!-- Add more conditions for other social icons as needed -->
+
+
+
+
+
+
+
+
+ 
+ 
+<!-- 
+
+    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/linkedin.png"></a></li>
+    
+    
+    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/pin.png"></a></li>
+    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/tick.png"></a></li>
+    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/fb.png"></a></li>
+    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/insta.png"></a></li>
+    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/watsup.png"></a></li>
+    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/youtube.png"></a></li>  -->
+
+           
+            </ul>
+        </div>
+     </div>
+
+
+</body>
+</html>

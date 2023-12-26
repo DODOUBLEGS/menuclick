@@ -1,0 +1,199 @@
+{% extends 'starter.html' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">ShopType</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">ShopType</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <h1 class="text-center display-">Search</h1>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <form class="form" action="{% url 'shoptypesearch' %}" method="get" value="{{request.GET.q}}" >
+                        <div class="input-group">
+                            <input type="text" name="q" value="{{request.GET.q}}" autocomplete="off" class="form-control form-control-lg" placeholder="Shop Type Name" style="background-color: rgb(255, 255, 255); color: black;">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-lg btn-default">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div style="margin-top: 20px;"></div>
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="card-title">ShopType list</h3>
+                {% if perms.dashboard.add_shoptype %}
+                <a href="{% url 'addshoptype' %}" class="btn btn-primary" >Add ShopType</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ShopType</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for list in shop_types %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            <b>Eng. Name: </b>{{ list.name }}({{list.id}})<br>
+                            <b>shop</b>
+                            <b>Local Lang:</b>{{ list.local_name }}
+                        </td>
+                        <td>{{ list.description }}</td>
+                        {% if list.is_active %}
+                        <td><span class="badge bg-success">Active</span></td>
+                        {% else %}
+                        <td><span class="badge bg-danger">Block</span></td>
+                        {% endif %}
+                        {% if perms.dashboard.change_shoptype %}
+                        <td>
+                            <button type="button" class="btn  btn btn-success" data-toggle="modal" data-target="#myModal{{ list.id }}">
+                                <i class="fa fa-eye"></i>
+                            <!-- {{ list.name }} -->
+                            </button>
+                
+                            <!-- Modal for each ShopType -->
+                            <div class="modal fade" id="myModal{{ list.id }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">{{ list.name }}</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                
+                                        <!-- Modal Body -->
+                                        <div class="modal-body">
+                                            <p>Name: {{ list.name }}</p>
+                                            <!-- Add other fields as needed -->
+                                        </div>
+                
+                                        <!-- Modal Footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                
+                                    </div>
+                                </div>
+                            </div>
+                               
+                            </div>
+                            
+                                <a type="button" class="btn btn-warning" href="{% url 'editshoptype' list.id %}"  data-toggle="tooltip" title="Edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <!-- change_shoptype -->
+
+                            
+                                {% if list.is_active %}
+                                <a type="button" class="btn btn-danger" href="{%url 'block_shop_type' list.id %}" data-toggle="tooltip" title="Block">
+                                    <i class="fa fa-ban"></i>
+                                </a>
+                                {% else %}
+                                <a type="button" class="btn btn-success" href="{%url 'activate_shop_type' list.id %}" data-toggle="tooltip" title="Block">
+                                    <i class="fa fa-ban"></i>
+                                </a>
+                                {% endif %}
+                            {% endif %}
+
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    {% if results %}
+                    {% for list in results %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            <b>Eng. Name: </b>{{ list.name }}<br>
+                            <b>Local Lang:</b>{{ list.local_name }}
+                        </td>
+                        <td>{{ list.description }}</td>
+                        {% if list.is_active %}
+                        <td><span class="badge bg-success">Active</span></td>
+                        {% else %}
+                        <td><span class="badge bg-danger">Block</span></td>
+                        {% endif %}
+                    {% if perms.dashboard.change_shoptype %}
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#viewModal" data-toggle="tooltip" title="View">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </div>
+                            
+                                <a type="button" class="btn btn-warning" href="{% url 'editshoptype' list.id %}"  data-toggle="tooltip" title="Edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                {% if list.is_active %}
+                                <a type="button" class="btn btn-danger" href="{%url 'block_shop_type' list.id %}" data-toggle="tooltip" title="Block">
+                                    <i class="fa fa-ban"></i>
+                                </a>
+                                {% else %}
+                                <a type="button" class="btn btn-success" href="{%url 'activate_shop_type' list.id %}" data-toggle="tooltip" title="Block">
+                                    <i class="fa fa-ban"></i>
+                                </a>
+                                {% endif %}
+                    {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <td colspan="5">No search results for this query</td>
+                    {% endif %}
+
+                    {% endfor %}
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if shop_types.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ shop_types.previous_page_number }}">previous</a>
+                            {% endif %}
+                    
+                            <span class="current">
+                                Page {{ shop_types.number }} of {{ shop_types.paginator.num_pages }}.
+                            </span>
+                    
+                            {% if shop_types.has_next %}
+                                <a href="?page={{ shop_types.next_page_number }}">next</a>
+                                <a href="?page={{ shop_types.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

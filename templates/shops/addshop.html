@@ -1,0 +1,227 @@
+{% extends 'starter.html' %}
+{% block content %}
+<div class="content-wrapper">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-md-12">
+                    <!-- General Form Elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit shop</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- <form method="post" enctype="multipart/form-data"> -->
+                                <form method="post" id="personForm" data-cities-url="{% url 'ajax_load_cities' %}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.shop_name.label_tag }}
+                                            {{ form.shop_name }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.shop_name_local.label_tag }}
+                                            {{ form.shop_name_local }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.shoptype.label_tag }}
+                                            {{ form.shoptype }}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.category.label_tag }}
+                                            {{ form.category }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.shop_address.label_tag }}
+                                            {{ form.shop_address }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.contact_number.label_tag }}
+                                            {{ form.contact_number }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.whatsapp_number.label_tag }}
+                                            {{ form.whatsapp_number }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.shop_code.label_tag }}
+                                            {{ form.shop_code }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.shop_logo.label_tag }}  
+                                            {{ form.shop_logo }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- // -->
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.shop_url.label_tag }}
+                                            {{ form.shop_url }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.expired_date.label_tag }}
+                                            {{ form.expired_date }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.seo_title.label_tag }}
+                                            {{ form.seo_title }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- // -->
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.pay_type.label_tag }}
+                                            {{ form.pay_type }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.seo_image.label_tag }}
+                                            {{ form.seo_image }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.background_sound.label_tag }}
+                                            {{ form.background_sound }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- // -->
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.shop_map_url.label_tag }}
+                                            {{ form.shop_map_url }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.social_icons.label_tag }}
+                                            {{ form.social_icons }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.social_icons_url.label_tag }}
+                                            {{ form.social_icons_url }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- // -->
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.seo_description.label_tag }}
+                                            {{ form.seo_description }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.city_names.label_tag }}
+                                            {{ form.city_names }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.menu_brochure.label_tag }}
+                                            {{ form.menu_brochure }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form.is_active.label_tag }}
+                                            {{ form.is_active }}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                                <!-- Continue this pattern for the remaining form fields -->
+                                
+                                <button type="submit">Create Shop</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<style>
+    /* CSS for consistent alignment */
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+    .form-group label {
+        margin-bottom: 5px;
+    }
+    .form-group input[type="text"], .form-group select {
+        width: 100%;
+        padding: 10px;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_shoptype").change(function () {
+        const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+        const shoptypeId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'shoptype_id': shoptypeId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_category").html(data);  // replace the contents of the city input with the data that came from the server
+                /*
+
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (city) {
+                    html_data += `<option value="${city.id}">${city.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_city").html(html_data);
+
+                */
+            }
+        });
+
+    });
+</script>
+{% endblock %}

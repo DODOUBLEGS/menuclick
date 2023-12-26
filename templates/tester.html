@@ -1,0 +1,312 @@
+
+{% extends 'starter.html' %}
+{% block content %}
+<div class="content-wrapper">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-md-12">
+                    <!-- General Form Elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit shop</h3>
+                        </div>
+                        <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          
+                          <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.shop_name.label_tag }}
+                                    {{ form.shop_name }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.shop_name_local.label_tag }}
+                                    {{ form.shop_name_local }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.shoptype.label_tag }}
+                                    {{ form.shoptype }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.category.label_tag }}
+                                    {{ form.category }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.shop_address.label_tag }}
+                                    {{ form.shop_address }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.contact_number.label_tag }}
+                                    {{ form.contact_number }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.whatsapp_number.label_tag }}
+                                    {{ form.whatsapp_number }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.shop_code.label_tag }}
+                                    {{ form.shop_code }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.shop_logo.label_tag }}  
+                                    {{ form.shop_logo }}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- // -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.shop_url.label_tag }}
+                                    {{ form.shop_url }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.expired_date.label_tag }}
+                                    {{ form.expired_date }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.seo_title.label_tag }}
+                                    {{ form.seo_title }}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- // -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.pay_type.label_tag }}
+                                    {{ form.pay_type }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.seo_image.label_tag }}
+                                    {{ form.seo_image }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.background_sound.label_tag }}
+                                    {{ form.background_sound }}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- // -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.shop_map_url.label_tag }}
+                                    {{ form.shop_map_url }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div id="icon-formset"> <!-- Unique ID for the icon formset -->
+                                        {{ icon_formset.management_form }}
+                                        {{ icon_formset.non_form_errors }}
+                                        
+                                        {% for form in icon_formset.forms %}
+                                            <div class="formset-row">
+                                                {{ form.name.label_tag }}<br>
+                                                {{ form.name }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <button type="button" class="badge bg-success" id="add-form">+</button>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div id="url-formset"> <!-- Unique ID for the URL formset -->
+                                        {{ icon_formset.management_form }}
+                                        {{ icon_formset.non_form_errors }}
+                                        
+                                        {% for form in icon_formset.forms %}
+                                            <div class="formset-row">
+                                                {{ form.social_icons_url.label_tag }}<br>
+                                                {{ form.social_icons_url }} 
+                                            </div>
+                                        {% endfor %}
+                                        
+                                        
+                                    </div>
+                                    
+                                    
+                                    <button type="button" class=" badge bg-danger" id="delete-form">---</button>
+
+                                    <ion-icon name="add-outline"></ion-icon>
+                                   
+                                </div>
+                            </div>
+                            
+                           
+                        </div>
+                        <!-- // -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.seo_description.label_tag }}
+                                    {{ form.seo_description }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.city_names.label_tag }}
+                                    {{ form.city_names }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.menu_brochure.label_tag }}
+                                    {{ form.menu_brochure }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form.is_active.label_tag }}
+                                    {{ form.is_active }}
+                                </div>
+                            </div>
+                       
+                   
+                    
+                        
+                            
+                            
+                          
+                          
+                        </div>
+                       
+                        
+                          <button type="submit">Save</button>
+                        </form>
+                      
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </div>
+
+
+
+
+  <script>
+   document.addEventListener('DOMContentLoaded', function () {
+    const addButton = document.getElementById('add-form');
+    const deleteButton = document.getElementById('delete-form');
+
+    addButton.addEventListener('click', function () {
+        addForm('icon-formset');
+        addForm('url-formset');
+    });
+
+    deleteButton.addEventListener('click', function () {
+        deleteForm('icon-formset');
+        deleteForm('url-formset');
+    });
+
+    function addForm(formsetId) {
+        const formset = document.getElementById(formsetId);
+        const formsetCount = parseInt(formset.querySelector('input[name$="TOTAL_FORMS"]').value);
+        const newForm = formset.querySelector('.formset-row').cloneNode(true);
+
+        newForm.querySelectorAll('input, select').forEach(function (input) {
+            const newName = input.name.replace(`icons-${formsetCount - 1}`, `icons-${formsetCount}`);
+            const newId = input.id.replace(`icons-${formsetCount - 1}`, `icons-${formsetCount}`);
+            input.name = newName;
+            input.id = newId;
+            input.value = '';
+        });
+
+        newForm.querySelectorAll('label').forEach(function (label) {
+            const newFor = label.getAttribute('for').replace(`icons-${formsetCount - 1}`, `icons-${formsetCount}`);
+            label.setAttribute('for', newFor);
+        });
+
+        formset.appendChild(newForm);
+        formset.querySelector('input[name$="TOTAL_FORMS"]').value = formsetCount + 1;
+    }
+
+    function deleteForm(formsetId) {
+        const formset = document.getElementById(formsetId);
+        const formsetCount = parseInt(formset.querySelector('input[name$="TOTAL_FORMS"]').value);
+
+        if (formsetCount > 1) {
+            const lastForm = formset.querySelector('.formset-row:last-child');
+            formset.removeChild(lastForm);
+            formset.querySelector('input[name$="TOTAL_FORMS"]').value = formsetCount - 1;
+        }
+    }
+});
+
+
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Function to update categories based on selected ShopType
+    function updateCategories() {
+      var shoptypeId = $('#id_shoptype').val();
+      var categoriesSelect = $('#id_category');
+
+      // Clear previous options
+      categoriesSelect.empty();
+
+      // Fetch categories for the selected ShopType using AJAX
+      $.ajax({
+        url: 'http://127.0.0.1:8000/dashboard/get_categories',  // Replace with the actual URL to fetch categories
+        data: { shoptype_id: shoptypeId },
+        success: function(data) {
+          // Update the categories dropdown with the received data
+          $.each(data.categories, function(id, name) {
+            categoriesSelect.append($('<option>', {
+              value: name.id,
+              text: name.name
+            }));
+          });
+        }
+      });
+    }
+
+    // Attach the updateCategories function to the change event of ShopType dropdown
+    $('#id_shoptype').change(updateCategories);
+
+    // Trigger the change event initially to load categories if a ShopType is selected
+    if ($('#id_shoptype').val()) {
+      updateCategories();
+    }
+  });
+</script>
+{% endblock %}

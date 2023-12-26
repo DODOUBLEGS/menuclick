@@ -1,0 +1,232 @@
+{% extends 'starter.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0">Shop </h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Shop</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+
+  <!-- Main content -->
+  <section class="content">
+      <div class="container-fluid">
+          <h2 class="text-center display-10">Search</h2>
+          <div class="row">
+              <div class="col-md-8 offset-md-2">
+                  <form action="simple-results.html">
+                      <div class="input-group">
+                          <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here">
+                          <div class="input-group-append">
+                              <button type="submit" class="btn btn-lg btn-default">
+                                  <i class="fa fa-search"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </section>
+  <div style="margin-top: 20px;"></div>
+  <div class="card">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <h3 class="card-title">Shop list</h3>
+          {% if perms.dashboard.add_shop %}
+          <a href="{% url 'addshop' %}"  class="btn btn-primary">Add Shop</a>
+          {% endif %}
+        </div>
+      </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th style="width: 3%">#</th>
+                <th colspan="3" style="width: 83%">Shop info</th>
+                                                    <th style="width: 10%">Action</th>
+                                                  
+            </tr>
+        </thead>
+        <tbody>
+            {% for list in lists %}
+        <tr>
+            
+          <td>{{ forloop.counter }}</td>
+          <td style="width: 30%">
+            <b>Name (eng):</b> {{list.shop.shop_name}}<b class="text-red"> ( {{list.shop.id}} )</b><br />
+            <!-- {{list.shop.id}} -->
+            <b>Name (Ar):</b> {{list.shop.shop_name_local}}<br>
+            <b>Shop Id:</b> <b class="text-red"> {{list.shop.shoptype.id}}</b><br>
+            <b>Type:</b>{{list.shop.shoptype.name}}
+            <td style="width: 30%">
+       
+                <!-- <b>urls<a href="{% url 'viewshop'  list.id  %}">view</a> -->
+                  {% if list.shop.is_active %}
+                  <b>urls<a href="{% url 'shopop' list.shop.id %}">{{list.shop.shop_url}}</a>
+                    {% else %}
+
+                    {% endif %}
+<br />
+                <b>ShopCode:</b>{{list.shop.shop_code}}<br />
+                <b>Username:</b>{{list.shop.contact_number}}<br />
+                <b>Whatsapp#:</b>{{list.shop.whatsapp_number}}<br />
+                <b>Allowed items:</b>0Nos<br />   
+
+                <td style="width: 20%">
+                    <b>Created On:</b>{{list.shop.publish_date}}<br />
+                    <b>Updated On:</b>{{list.shop.updated_on}}<br />
+                    <b>category:</b>{% for category in list.shop.category.all %}
+                    {{category.name}}//
+                    {% endfor %}
+                    <br />
+                    
+
+                    {% if list.shop.days_left <= 0 %}
+                    <!-- <span type="button" class="btnss badge bg-danger btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">expired</span></b><br> -->
+                    <button type="button" class="btnss badge bg-danger" data-toggle="modal" data-target="#exampleModal{{list.id}}">
+                      expired
+                  </button>
+                  <span class="badge bg-danger">{{list.expired_date}}</span>
+                  <div class="modal fade" id="exampleModal{{list.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{list.id}}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Renew Subscription!</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Name :{{list.shop_name}}<br>
+                          
+                          <form method="post" action="{% url 'renew_subscription' list.id %}">
+                            {% csrf_token %}
+                            <label for="date">Expired date *</label><br>
+                            <select class="btn btn-secondary" name="date" id="date">
+                                <option value="1">1 month</option>
+                                <option value="2">2 months</option>
+                                <option value="3">3 months</option>
+                                <option value="4">4 months</option>
+                                <option value="5">5 month</option>
+                                <option value="6">6 months</option>
+                                <option value="10">10 months</option>
+                                <option value="12">1 year</option>
+                            </select>
+                            <br>
+                            
+                      
+                          
+                           
+                        
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-primary">Update Expired Date</button>
+                        </form>
+                        
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <br>
+                    {% else %}
+                    <span class="badge bg-success">{{list.shop.expired_date}}</span>{{list.days_left }}-- days left<br>
+                    {% endif %}
+                    {% if list.shop.is_active %}
+                    <span class="badge bg-success">Active</span>
+                    {% else %}
+                    <span class="badge bg-danger">Blocked</span>
+                    {% endif %}
+                    
+                </td>
+                <td>
+                  {% if perms.dashboard.change_shop %}
+                    <div class="btn-group">
+                        
+                    
+                    
+                        <a type="button" class="btn btn-warning" href="{% url 'editshop' list.id %}"  data-toggle="tooltip" title="Edit">
+                            <i class="fa fa-edit"></i>
+                        </a><br>
+                        {% if list.shop.is_active %}
+                        <a type="button" class="btn btn-danger" href="{%url 'block_shop' list.id %}" data-toggle="tooltip" title="Block">
+                            <i class="fa fa-ban"></i>
+                        </a>
+                        {% else %}
+                        <a type="button" class="btn btn-success" href="{%url 'activate_shop' list.id %}" data-toggle="tooltip" title="active">
+                            <i class="fa fa-ban"></i>
+                        </a>
+                        {% endif %}
+
+                    </div>
+                  {% endif %}
+                </td>
+                
+
+  
+</td>
+<!-- ... your other HTML code ... -->
+
+                  
+</td>
+
+
+                </div>
+                </td>
+ 
+        </tr>
+    
+        {% endfor %}
+      
+
+  
+        </tbody>
+        <tfoot>
+        <!-- <tr>
+          <th>Rendering engine</th>
+          <th>Browser</th>
+          <th>Platform(s)</th>
+          <th>Engine version</th>
+          <th>CSS grade</th>
+        </tr> -->
+        </tfoot>
+      </table>
+    </div>
+</div>
+    <!-- /.card-body -->
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- for renew -->
+<script>
+$('.btnss').hover(function(){
+  $(this).text("Renew");
+}, function() {
+  $(this).text("expired");
+});
+</script>
+<!-- modal for renew to update the expiryy date  -->
+</script>
+
+
+
+
+
+
+
+{% endblock %}

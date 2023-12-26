@@ -1,0 +1,131 @@
+{% extends 'starter.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0">Shop </h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Shop</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+
+  <!-- Main content -->
+  <section class="content">
+      <div class="container-fluid">
+          <h2 class="text-center display-10">Search</h2>
+          <div class="row">
+              <div class="col-md-8 offset-md-2">
+                  <form action="simple-results.html">
+                      <div class="input-group">
+                          <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here">
+                          <div class="input-group-append">
+                              <button type="submit" class="btn btn-lg btn-default">
+                                  <i class="fa fa-search"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </section>
+  <div style="margin-top: 20px;"></div>
+  <div class="card">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <h3 class="card-title">Shop list</h3>
+          <button class="btn btn-primary">Your Button</button>
+        </div>
+      </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th style="width: 3%">#</th>
+                <th colspan="3" style="width: 83%">Shop info</th>
+                                                    <th style="width: 10%">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr>
+            <tr>
+          <td>1</td>
+          <td style="width: 30%">
+            <b>Name (eng):</b> {{list.shop_name}}<br />
+            <b>Name (Ar):</b> {{list.shop_name_local}}<br>
+            <b>Shop Id:</b> <b class="text-red"> {{list.shoptype.id}}</b><br>
+            <b>Type:</b>{{list.shoptype.name}}
+            <td style="width: 30%">
+                <b>URL:</b><a target="_blank" href="">wait</a><br />
+                <b>ShopCode:</b>{{list.shop_code}}<br />
+                <b>Username:;</b>{{list.contact_number}}<br />
+                <b>Whatsapp#:</b>{{list.whatsapp_number}}<br />
+                <b>Allowed items:</b>0Nos<br />
+
+                <td style="width: 20%">
+                    <b>cat:</b> <b class="text-red"> </b><br>
+                    <b>Created On:</b>123<br />
+                    <b>Updated On:</b>{{list.updated_on}}<br />
+                    <span class="badge bg-success">expire</span><br>
+                    <!-- {% if list.is_active %} -->
+                    <span class="progress-bar bg-success">Active</span>
+                    
+                    <!-- {% else %} -->
+                    <span class="badge bg-danger">Block</span>
+                    <!-- {% endif %} -->
+                </td>
+        <td>
+            <div class="btn-group">
+                <button type="button" class="btn btn-success" data-toggle="tooltip" title="View">
+                    <i class="fa fa-eye"></i>
+                </button>
+                <button type="button" class="btn btn-warning" data-toggle="tooltip" title="Edit">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button type="button" class="btn btn-danger" data-toggle="tooltip" title="Block">
+                    <i class="fa fa-ban"></i>
+                </button>
+            </div>
+        </td>
+ 
+        </tr>
+
+  
+        </tbody>
+        <tfoot>
+        <!-- <tr>
+          <th>Rendering engine</th>
+          <th>Browser</th>
+          <th>Platform(s)</th>
+          <th>Engine version</th>
+          <th>CSS grade</th>
+        </tr> -->
+        </tfoot>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+</div>
+
+
+<!--  table -->
+
+
+
+
+
+
+{% endblock %}

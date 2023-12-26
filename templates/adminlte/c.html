@@ -1,0 +1,138 @@
+{% extends 'starter.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0">Category </h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Category</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+
+  <!-- Main content -->
+  <section class="content">
+      <div class="container-fluid">
+          <h2 class="text-center display">Search</h2>
+          <div class="row">
+              <div class="col-md-8 offset-md-2">
+                  <form action="simple-results.html">
+                      <div class="input-group">
+                          <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here">
+                          <div class="input-group-append">
+                              <button type="submit" class="btn btn-lg btn-default">
+                                  <i class="fa fa-search"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </section>
+  <div style="margin-top: 20px;"></div>
+  <div class="card">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <h3 class="card-title">Category list</h3>
+          <a href="{% url 'cadd' %}" class="btn btn-primary" data-toggle="modal" data-target="#addcatModal">category</a>
+        </div>
+      </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Category</th>
+          <th>Shop Type</th>
+          <th>Sort Order</th>
+          <th>Status</th>
+          <th style="width: 10%">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for list in lists %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>Internet
+            Explorer 4.0
+          </td>
+          <td>Win 95+</td>
+          <td> 4</td>
+          <td>X</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <!-- <tr>
+          <th>Rendering engine</th>
+          <th>Browser</th>
+          <th>Platform(s)</th>
+          <th>Engine version</th>
+          <th>CSS grade</th>
+        </tr> -->
+        </tfoot>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+</div>
+
+
+<!--  table -->
+<!-- modal  -->
+<!-- Modal for adding a ShopType -->
+<div class="modal fade" id="addcatModal" tabindex="-1" role="dialog" aria-labelledby="addcatModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="#addcatModal">Add ShopType</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Add your form inputs for shopname, shoplocalname, and description here -->
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="shopname">Shop Name (English)</label>
+              <input type="text" class="form-control" id="shopname" name="shopname">
+            </div>
+            <div class="form-group">
+              <label for="shoplocalname">Shop Name (Local)</label>
+              <input type="text" class="form-control" id="shoplocalname" name="shoplocalname">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" id="description" name="description"></textarea>
+            </div>
+            <!-- Add other form fields if needed -->
+  
+            <button type="submit" class="btn btn-primary">Add ShopType</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!-- You can add other buttons or elements here if needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+{% endblock %}

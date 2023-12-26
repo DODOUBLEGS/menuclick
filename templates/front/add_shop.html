@@ -1,0 +1,31 @@
+<!-- add_shop.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Shop</title>
+</head>
+<body>
+
+<h2>Add a New Shop</h2>
+
+<form method="post" action="{% url 'add_shop' %}">
+    {% csrf_token %}
+    
+    <label for="shop_name">Shop Name:</label>
+    <input type="text" id="shop_name" name="shop_name" required>
+    
+    <br>
+    
+    <label for="shop_name_local">Shop Name Local:</label>
+    <input type="text" id="shop_name_local" name="shop_name_local">
+    
+    <br>
+
+    <input type="submit" value="Add Shop">
+</form>
+
+</body>
+</html>
