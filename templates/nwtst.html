@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shop Form</title>
+
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+  <div class="container mt-5">
+    <h2>Edit Shop</h2>
+
+    <form method="post" enctype="multipart/form-data" id="shopForm">
+      {% csrf_token %}
+
+      <div class="row">
+        <!-- Shop Form with Bootstrap styling -->
+        <div class="col-md-4">
+          <div class="form-group">
+            {{ form.shop_name.label_tag }}
+            {{ form.shop_name }}
+            <!-- Add other fields as needed -->
+          </div>
+        </div>
+
+        <!-- Second column for additional form fields -->
+        <div class="col-md-4">
+          <div class="form-group">
+            {{ form.shoptype.label_tag }}
+            {{ form.shoptype }}
+            <!-- Add other fields as needed -->
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+        {{ form.shop_map_url.label_tag }}
+        {{ form.shop_map_url }}
+          </div>
+        </div>
+      </div>
+
+        <!-- Third column for ModelB Formset -->
+        
+
+      <div class="row">
+        <!-- Shop Form with Bootstrap styling -->
+        <div class="col-md-4">
+          <div class="form-group">
+      {{ form.shoptype.label_tag }}
+      {{ form.shoptype }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      {{ form.category.label_tag }}
+      {{ form.category }}
+    </div>
+  </div>
+
+
+      <div class="col-md-4">
+        <div class="form-group">
+
+          {{ form.shop_address.label_tag }}
+          {{ form.shop_address }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Shop Form with Bootstrap styling -->
+      <div class="col-md-4">
+        <div class="form-group">
+
+     
+
+
+        {{ form.contact_number.label_tag }}
+        {{ form.contact_number }}
+      </div>
+    </div>
+        <div class="col-md-4">
+          <div class="form-group">
+
+        {{ form.whatsapp_number.label_tag }}
+        {{ form.whatsapp_number }}
+      </div>
+    </div>
+        <div class="col-md-4">
+          <div class="form-group">
+      
+
+        {{ form.shop_code.label_tag }}
+        {{ form.shop_code }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Shop Form with Bootstrap styling -->
+    <div class="col-md-4">
+      <div class="form-group">
+        {{ form.shop_logo.label_tag }}  
+        {{ form.shop_logo }}
+      </div>
+    </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+
+        {{ form.shop_url.label_tag }}
+        {{ form.shop_url }}
+      </div>
+    </div>
+        <div class="col-md-4">
+          <div class="form-group">
+
+        {{ form.expired_date.label_tag }}
+        {{ form.expired_date }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Shop Form with Bootstrap styling -->
+    <div class="col-md-4">
+      <div class="form-group">
+
+
+        {{ form.seo_title.label_tag }}
+        {{ form.seo_title }}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+
+
+        {{ form.pay_type.label_tag }}
+        {{ form.pay_type }}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+
+
+        {{ form.seo_image.label_tag }}
+        {{ form.seo_image }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Shop Form with Bootstrap styling -->
+    <div class="col-md-4">
+      <div class="form-group">
+
+
+        {{ form.background_sound.label_tag }}
+        {{ form.background_sound }}
+      </div>
+    </div>
+
+
+    <div class="col-md-4">
+      {{ icon_formset.management_form }}
+      <div id="formset-container">
+        {% for form in icon_formset %}
+          <div class="form-group">
+            {{ form.as_table }}
+          </div>
+        {% endfor %}
+      </div>
+      <button type="button" class="btn btn-success" id="addFormsetBtn">Add Form</button>
+    </div>
+  </div>
+
+        
+
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+  </div>
+
+  <!-- Add Bootstrap JS and Popper.js (if needed) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Add jQuery for dynamic formset -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // Counter for dynamically adding formsets
+      var formsetCount = {{ icon_formset.total_form_count }};
+
+      // Handle the "Add Form" button click
+      $('#addFormsetBtn').on('click', function() {
+        // Clone the last formset and update form indexes
+        var newFormset = $('#formset-container .form-group:last').clone();
+        newFormset.find(':input').each(function() {
+          var oldName = $(this).attr('name');
+          var newName = oldName.replace('-' + (formsetCount - 1) + '-', '-' + formsetCount + '-');
+          $(this).attr('name', newName);
+          $(this).val(''); // Clear the input values
+        });
+
+        // Append the new formset to the container
+        $('#formset-container').append(newFormset);
+
+        // Increment the formset counter
+        formsetCount++;
+      });
+    });
+  </script>
+
+</body>
+</html>

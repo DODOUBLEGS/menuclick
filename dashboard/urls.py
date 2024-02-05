@@ -39,6 +39,8 @@ urlpatterns = [
     path('create',views.create,name='create'),
     
     path('editshop/<int:pk>',views.editshop,name='editshop'),
+    # path('editsha/<int:pk>',views.editsha,name='editsha'),
+
     path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'),
 
     path('menu/<str:shop_url>',views.shopmenu,name='shopmenu'),
@@ -53,6 +55,7 @@ urlpatterns = [
     
     path('addusers',views.addusers,name='addusers'),
     path('editusers/<int:pk>/',views.editusers,name='editusers'),
+    path('shoped/<int:pk>',views.shoped,name='shoped'),
 
  
    
@@ -63,6 +66,14 @@ urlpatterns = [
     path('api/shoptype/', views.ShoptypeList.as_view(), name='shoptype-api'),
     path('api/shoptype/<int:pk>', views.ShoptypeDetails.as_view(), name='shoptype-api-id'),
     path('api/shoplist/', views.ShopList.as_view(), name='category-list'),
+    path('api/shoplist/<int:pk>', views.ShopDetails.as_view(), name='category-list-id'),
+
+    # ///
+    path('api/shop/category/<str:category_name>/',views.ShopByCategoryView.as_view(),name='shpet'),
+
+    path('<path:unknown_path>', views.handle_404, name='handle_404'),
+
+    path('shoped/<int:pk>',views.shoped,name='shoped'),
     
     
     ]

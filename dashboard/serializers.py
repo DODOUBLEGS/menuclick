@@ -12,7 +12,7 @@ from .models import Icon
 class ShopSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Icon
+        model = Shop
         fields = ('__all__')
 
 

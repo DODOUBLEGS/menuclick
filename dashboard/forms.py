@@ -22,6 +22,11 @@ class CategoryForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['shoptype'].label_from_instance = lambda obj: obj.name
 
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control' 
+
+
+
 
 from django import forms
 from .models import Shop
@@ -67,15 +72,15 @@ class IconForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(IconForm, self).__init__(*args, **kwargs)
         self.fields['shop'].queryset = Shop.objects.all()
-        self.fields['name'].widget.attrs.update({'style': 'width: 330px;'})  
-        self.fields['social_icons_url'].widget.attrs.update({'style': 'width: 330px;'}) 
+        self.fields['name'].widget.attrs.update({'style': 'width: 382px;'})  
+        self.fields['social_icons_url'].widget.attrs.update({'style': 'width: 382px;'}) 
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
     
 
         
 
-ModelBFormSet = inlineformset_factory(Shop, Icon, form=IconForm, extra=2, can_delete=True)
+ModelBFormSet = inlineformset_factory(Shop, Icon, form=IconForm, extra=1, can_delete=True)
 
 
 

@@ -1,5 +1,5 @@
 from django.db import models
-
+# env/Scripts/activate 
 # Create your models here.
 class ShopType(models.Model):
     name=models.CharField(max_length=100)
@@ -17,6 +17,8 @@ class Category(models.Model):
     
     def __str__(self):
         return self.name
+    
+
 
 
 
@@ -46,11 +48,9 @@ class Shop(models.Model):
     seo_image = models.ImageField(upload_to='seo_images/', blank=True, verbose_name="Seo Image")
     background_sound = models.FileField(upload_to='background_sounds/', verbose_name="Background Sound", blank=True, null=True)
     shop_map_url = models.URLField(verbose_name="Shop Map URL", blank=True, null=True)
-    # social_icons=models.ForeignKey(Icon, on_delete=models.CASCADE,blank=True, null=True)
-    # social_icons_url = models.URLField(verbose_name="Social Icons Url", blank=True, null=True)
     seo_description = models.TextField(verbose_name="Seo Description",blank=True, null=True)
     city_names = models.TextField(verbose_name="City Names",blank=True, null=True)
-    menu_brochure = models.FileField(upload_to='menu_brochures/', verbose_name="Menu / Brochure", blank=True, null=True)
+    menu_brochure = models.FileField(upload_to='menu_brochures/', verbose_name="Menu / Brochure")
     publish_date = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -66,7 +66,7 @@ s_choiches=[
 
 ]
 class  Icon(models.Model):
-    name=models.CharField(max_length=100,choices=s_choiches)
+    name=models.CharField(max_length=100,choices=s_choiches,blank=True, null=True)
     social_icons_url = models.URLField(verbose_name="Social Icons Url", blank=True, null=True)
     shop=models.ForeignKey(Shop, on_delete=models.CASCADE,)
     

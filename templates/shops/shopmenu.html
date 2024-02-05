@@ -50,7 +50,7 @@
               </a>
             </div>
             <div class="location">
-              <a href="{{shop.shop_map_url}}"><span>LOCATION</span></a>
+              <a   target="_blank" href="{{shop.shop_map_url}}"><span>LOCATION</span></a>
             </div>
             <div class="share">
                 <h3>Share</h3>
@@ -60,11 +60,11 @@
                     {% for icon in icons %}
                 
                     {% if icon.name == 'facebook' %}
-                    <li> <a href="{{icon.social_icons_url}}">  <img src="{% static 'social/fb.png' %}" width="50" height="50" ></a></li>
+                    <li> <a target="_blank" href="{{icon.social_icons_url}}">  <img src="{% static 'social/fb.png' %}" width="50" height="50" ></a></li>
                     {% elif icon.name == 'instagram' %}
-                    <li> <a href="{{icon.social_icons_url}}"> <img src="{% static 'social/insta.webp' %}" width="50" height="50"></a></li>
+                    <li> <a target="_blank" href="{{icon.social_icons_url}}"> <img src="{% static 'social/insta.webp' %}" width="50" height="50"></a></li>
                     {% elif icon.name == 'whatsapp' %}
-                    <li> <a href="{{icon.social_icons_url}}"> <img src="{% static 'social/wtsp.webp' %}" width="50" height="50"></a></li>
+                    <li> <a target="_blank" href="{{icon.social_icons_url}}"> <img src="{% static 'social/wtsp.webp' %}" width="50" height="50"></a></li>
                     {% endif %}
                  
               
@@ -72,36 +72,7 @@
                 
       </div>
           
-           
-            
-<!-- Display social icons based on their IDs -->
-
-
-<!-- Add more conditions for other social icons as needed -->
-
-
-
-
-
-
-
-
- 
- 
-<!-- 
-
-    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/linkedin.png"></a></li>
-    
-    
-    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/pin.png"></a></li>
-    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/tick.png"></a></li>
-    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/fb.png"></a></li>
-    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/insta.png"></a></li>
-    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/watsup.png"></a></li>
-    <li><a href="#"><img src="http://www.menuclicker.com/assets/images/basic/youtube.png"></a></li>  -->
-
-           
-            </ul>
+          </ul>
         </div>
      </div>
 

@@ -372,8 +372,89 @@ def create(request):
         shop_form = ShopForm()
         icon_formset = ModelBFormSet(prefix='icons')
 
-    # Render the initial form or formset
+   
     return render(request, 'tester.html', {'form': shop_form, 'icon_formset': icon_formset})
+
+
+
+# //////////////////////////////
+
+
+def shoped(request,pk):
+    edit=Shop.objects.get(id=pk)
+
+    
+    if request.method == 'POST':
+        shop_form = ShopForm(request.POST,request.FILES,instance=edit)
+        icon_formset = ModelBFormSet(request.POST, request.FILES, prefix='icons',instance=edit)
+
+        if shop_form.is_valid() and icon_formset.is_valid():
+            with transaction.atomic():
+                # Save the Shop instance
+                shop_instance = shop_form.save()
+
+                # Link the Shop instance to each Icon instance in the formset
+                icons = icon_formset.save(commit=False)
+                for icon in icons:
+                    icon.shop = shop_instance
+                    icon.save()
+
+                # Save the formset to handle any additional changes
+                icon_formset.save_m2m()
+                if shop_instance.menu_brochure.name.endswith('.pdf'):
+                    image_dir = f'media/menu_brochures/images/shop_{shop_instance.id}/'
+                    os.makedirs(image_dir, exist_ok=True)
+
+                    pdf_path = shop_instance.menu_brochure.path
+
+                
+                    pdf_document = fitz.open(pdf_path)
+
+                    for page in pdf_document.pages():
+                        page.set_rotation(0)
+
+                    rotated_pdf_path = image_dir + f'rotated{shop_instance.id}.pdf'
+                    pdf_document.save(rotated_pdf_path)
+
+                    pdf_document.close()
+
+                    # openin th rotated file
+                    with open(rotated_pdf_path, 'rb') as rotated_pdf_file:
+                        # Save to men bro field
+                        shop_instance.menu_brochure.save(f'rotated{shop_instance.id}.pdf', rotated_pdf_file)
+
+                    os.remove(rotated_pdf_path)
+
+                    if shop_instance.menu_brochure.name.endswith('.pdf'):
+
+
+                        image_dir = f'media/menu_brochures/images/shop_{shop_instance.id}/'
+                        os.makedirs(image_dir, exist_ok=True)  
+                        pdf_path = shop_instance.menu_brochure.path
+
+                        pdf_document = fitz.open(pdf_path)
+
+                        
+                        for page_number in range(pdf_document.page_count):
+                            page = pdf_document.load_page(page_number)
+                            image = page.get_pixmap()
+                            image.save(image_dir + f'page_{page_number + 1}.jpg')
+
+            return redirect('shop')
+
+        else:
+             print(shop_form.errors)
+             print(icon_formset.errors)
+             return HttpResponse(f'error {icon_formset.errors}  and {shop_form.errors} ')
+            
+            
+    else:
+        shop_form = ShopForm(instance=edit)
+        icon_formset = ModelBFormSet(prefix='icons',instance=edit)
+
+   
+    return render(request, 'nwtst.html', {'form': shop_form, 'icon_formset': icon_formset})
+    # return render(request, 'tester.html', {'form': shop_form, 'icon_formset': icon_formset})
 
 #  for depended drop down
 
@@ -531,12 +612,7 @@ def load_cities(request):
 def shopmenu(request,shop_url):
     menu=Shop.objects.get(shop_url=shop_url)
     icons = Icon.objects.filter(shop=menu)
-    # content={
-    #     "icons":icons,
-    #     "shop":menu
-    # }
    
-
     return render(request,'shops/shopmenu.html',{'shop':menu,'icons':icons})
 
 
@@ -663,10 +739,25 @@ class ShoptypeDetails(generics.RetrieveUpdateDestroyAPIView):
 
 class ShopList(generics.ListCreateAPIView):
     serializer_class=ShopSerializer
-    queryset=Icon.objects.all()
+    queryset=Shop.objects.all()
+  
+class ShopDetails(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class=ShopSerializer
+    queryset=Shop.objects.all()
+
+class ShopByCategoryView(generics.ListAPIView):
+    serializer_class = ShopSerializer
+
+    def get_queryset(self):
+        category_name = self.kwargs['category_name']
+        return Shop.objects.filter(category__name=category_name, is_active=True)
+    
 
 
+from django.shortcuts import render
 
+def handle_404(request, unknown_path):
+    return render(request, 'test4.html', {'unknown_path': unknown_path}, status=404)
 
  
             

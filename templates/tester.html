@@ -1,6 +1,8 @@
 
 {% extends 'starter.html' %}
 {% block content %}
+
+
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
@@ -10,7 +12,7 @@
                     <!-- General Form Elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Edit shop</h3>
+                            <h3 class="card-title">add shop</h3>
                         </div>
                         <div class="card-body">
                         <form method="post" enctype="multipart/form-data">
@@ -137,13 +139,14 @@
                                             <div class="formset-row">
                                                 {{ form.name.label_tag }}<br>
                                                 {{ form.name }}
+                                                
                                             </div>
                                         {% endfor %}
+                                        <button type="button" class="add-row-button badge bg-success" data-formsets="icon-formset url-formset">+</button>
                                     </div>
-                                    <button type="button" class="badge bg-success" id="add-form">+</button>
                                 </div>
-                                
                             </div>
+                            
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <div id="url-formset"> <!-- Unique ID for the URL formset -->
@@ -156,17 +159,11 @@
                                                 {{ form.social_icons_url }} 
                                             </div>
                                         {% endfor %}
-                                        
-                                        
+                                        <button type="button" class="remove-row-button badge bg-danger" data-formsets="icon-formset url-formset">-</button>
                                     </div>
-                                    
-                                    
-                                    <button type="button" class=" badge bg-danger" id="delete-form">---</button>
-
-                                    <ion-icon name="add-outline"></ion-icon>
-                                   
                                 </div>
                             </div>
+                           
                             
                            
                         </div>
@@ -199,17 +196,83 @@
                                 </div>
                             </div>
                        
-                   
-                    
-                        
-                            
-                            
-                          
-                          
+  
                         </div>
                        
                         
-                          <button type="submit">Save</button>
+                        <!-- Include jQuery -->
+                        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                // Function to add a new formset row
+                                function addFormsetRow(formsetID) {
+                                    var formset = $('#' + formsetID);
+                                    var totalForms = parseInt(formset.find('input[name$="TOTAL_FORMS"]').val());
+                                    var newForm = formset.find('.formset-row:last').clone();
+                        
+                                    // Update formset indexes
+                                    newForm.find(':input').each(function () {
+                                        var name = $(this).attr('name').replace(/-\d+-/, '-' + totalForms + '-');
+                                        var id = 'id_' + name;
+                                        $(this).attr({ 'name': name, 'id': id }).val('').removeAttr('checked');
+                                    });
+                        
+                                    // Increment total forms count
+                                    formset.find('input[name$="TOTAL_FORMS"]').val(totalForms + 1);
+                        
+                                    // Append the new form to the formset
+                                    formset.find('.formset-row:last').after(newForm);
+                                }
+                        
+                                // Function to remove the last formset row
+                                function removeFormsetRow(formsetID) {
+                                    var formset = $('#' + formsetID);
+                                    var totalForms = parseInt(formset.find('input[name$="TOTAL_FORMS"]').val());
+                        
+                                    // Ensure there is at least one row before removing
+                                    if (totalForms > 1) {
+                                        // Remove the last formset row
+                                        formset.find('.formset-row:last').remove();
+                        
+                                        // Decrement total forms count
+                                        formset.find('input[name$="TOTAL_FORMS"]').val(totalForms - 1);
+                                    }
+                                }
+                        
+                                // Event handler for adding new formset rows
+                                $('.add-row-button').on('click', function () {
+                                    var formsets = $(this).data('formsets').split(' ');
+                                    formsets.forEach(function (formsetID) {
+                                        addFormsetRow(formsetID);
+                                    });
+                                });
+                        
+                                // Event handler for removing formset rows
+                                $('.remove-row-button').on('click', function () {
+                                    var formsets = $(this).data('formsets').split(' ');
+                                    formsets.forEach(function (formsetID) {
+                                        removeFormsetRow(formsetID);
+                                    });
+                                });
+                            });
+                        </script>
+                        
+                        
+                        <!-- Your existing button to add rows to both formsets -->
+                      
+                        
+
+
+
+
+                           
+                        
+                        
+                       
+                        
+                          <button type="submit"class="btn-success">Create Shop</button>
+                        </div>
+                        </div>
                         </form>
                       
                     </div>
@@ -222,54 +285,6 @@
 
 
 
-  <script>
-   document.addEventListener('DOMContentLoaded', function () {
-    const addButton = document.getElementById('add-form');
-    const deleteButton = document.getElementById('delete-form');
-
-    addButton.addEventListener('click', function () {
-        addForm('icon-formset');
-        addForm('url-formset');
-    });
-
-    deleteButton.addEventListener('click', function () {
-        deleteForm('icon-formset');
-        deleteForm('url-formset');
-    });
-
-    function addForm(formsetId) {
-        const formset = document.getElementById(formsetId);
-        const formsetCount = parseInt(formset.querySelector('input[name$="TOTAL_FORMS"]').value);
-        const newForm = formset.querySelector('.formset-row').cloneNode(true);
-
-        newForm.querySelectorAll('input, select').forEach(function (input) {
-            const newName = input.name.replace(`icons-${formsetCount - 1}`, `icons-${formsetCount}`);
-            const newId = input.id.replace(`icons-${formsetCount - 1}`, `icons-${formsetCount}`);
-            input.name = newName;
-            input.id = newId;
-            input.value = '';
-        });
-
-        newForm.querySelectorAll('label').forEach(function (label) {
-            const newFor = label.getAttribute('for').replace(`icons-${formsetCount - 1}`, `icons-${formsetCount}`);
-            label.setAttribute('for', newFor);
-        });
-
-        formset.appendChild(newForm);
-        formset.querySelector('input[name$="TOTAL_FORMS"]').value = formsetCount + 1;
-    }
-
-    function deleteForm(formsetId) {
-        const formset = document.getElementById(formsetId);
-        const formsetCount = parseInt(formset.querySelector('input[name$="TOTAL_FORMS"]').value);
-
-        if (formsetCount > 1) {
-            const lastForm = formset.querySelector('.formset-row:last-child');
-            formset.removeChild(lastForm);
-            formset.querySelector('input[name$="TOTAL_FORMS"]').value = formsetCount - 1;
-        }
-    }
-});
 
 
   </script>
@@ -286,7 +301,7 @@
 
       // Fetch categories for the selected ShopType using AJAX
       $.ajax({
-        url: 'http://127.0.0.1:8000/dashboard/get_categories',  // Replace with the actual URL to fetch categories
+        url: '{% url "get_categories" %}',  // Replace with the actual URL to fetch categories
         data: { shoptype_id: shoptypeId },
         success: function(data) {
           // Update the categories dropdown with the received data

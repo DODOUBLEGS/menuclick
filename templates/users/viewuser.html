@@ -12,7 +12,7 @@
                 <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Category</li>
+                    <li class="breadcrumb-item active">Users</li>
                   </ol>
                 </div><!-- /.col -->
               </div><!-- /.row -->
@@ -46,7 +46,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <h3 class="card-title">Category list</h3>
           {% if perms.dashboard.add_category %}
-          <a href="{% url 'addcat' %}" class="btn btn-primary" >category</a>
+          <a href="{% url 'addusers' %}" class="btn btn-primary" >add User</a>
           {% endif %}
         </div>
       </div>
@@ -58,6 +58,7 @@
         <tr>
           <th>#</th>
           <th>Username</th>
+          <th>Id</th>
           <th>E-mail</th>
           <th>Superuser</th>
           <th>Staff</th>
@@ -70,6 +71,7 @@
         <tr>
           <td>{{forloop.counter}}</td>
           <td> {{list.user.username}}</td>
+          <td>{{list.user.id}}</td>
           <td>{{list.user.email}}</td>
           <td> {{list.user.is_superuser}}</td>
           <td>{{list.user.is_staff}}</td>
