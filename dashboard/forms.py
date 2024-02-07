@@ -21,6 +21,8 @@ class CategoryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['shoptype'].label_from_instance = lambda obj: obj.name
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control' 
 
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control' 
